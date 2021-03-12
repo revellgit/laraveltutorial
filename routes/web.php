@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // syntax: 'ControllerName@MethodName'
+Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 Route::get('/','PagesController@index')->name('pages.index');
 Route::get('/about','PagesController@about')->name('pages.about');
 
@@ -29,3 +30,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 */
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//This will enable email verification routes
+Auth::routes(['verify' => true]);
